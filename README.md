@@ -1,5 +1,7 @@
 # G5 Pricing and Availability Service
 
+[![Build Status](https://travis-ci.org/G5/g5-configurator.png?branch=master)](https://travis-ci.org/G5/g5-pricing-and-availability-service)
+
 A Rails app for creating pricing and availability data for client location sites.
 
 
