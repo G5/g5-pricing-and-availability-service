@@ -29,6 +29,13 @@ RSpec.configure do |config|
 
   config.include RequestAuthHelper, type: :request
   config.include ControllerAuthHelper, type: :controller
+  config.include DragAndDropHelper, type: :request
+
+  config.after(:each, js: true) do
+    # For some reason, it's not resetting back to the default driver after js specs,
+    # possibly because we're using capybara for request specs instead of feature specs
+    Capybara.use_default_driver
+  end
 
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)
