@@ -172,17 +172,16 @@ describe "Floor Plans" do
     end
   end
 
-  describe "Floor plans are drag and drop sortable" do
+  describe "Floor plans are drag and drop sortable", js: true do
     before do
+      http_login
       @location = Location.create! "urn" => "g5-cl-6cx7rin-hollywood", "name" => "Hollywood"
       @floor_plan_1 = FloorPlan.create! "location_id" => @location.id, "title" => "Unit 1"
       @floor_plan_2 = FloorPlan.create! "location_id" => @location.id, "title" => "Unit 2"
       visit location_path(@location)
     end
 
-    it "Updates database", js: true do
-      pending("Selenium doesn't play nice with HTTP basic auth")
-
+    it "Updates database" do
       expect(page).to have_content("Hollywood")
       within "#sortable" do
         floor_plan_1 = find('.floorplan:first-child')
