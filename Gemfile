@@ -29,6 +29,7 @@ group :development, :test do
   gem "foreman"
   gem "fabrication"
   gem "faker"
+  gem "pry-byebug"
 end
 
 group :production do
