@@ -8,6 +8,10 @@ describe "Locations" do
     click_button "Create Location"
   end
 
+  def stub_env_var(name, value)
+    stub_const('ENV', ENV.to_hash.merge(name => value))
+  end
+
   describe "Locations index" do
     describe "with http basic auth" do
       before do
@@ -39,12 +43,15 @@ describe "Locations" do
     end
 
     it "has client apps navigation" do
-      Capybara.app_host = 'http://g5-cpas-8cz7tip-clearwater.herokuapp.com'
+      stub_env_var('CMS_URL', 'https://my-cms.example.com')
+      stub_env_var('CPNS_URL', 'https://my-digits.example.com')
+      stub_env_var('CXM_URL', 'https://my-cxm.example.com')
       http_login
       visit locations_path
-      expect(page).to have_link("CMS", "http://g5-cms-8cz7tip-clearwater.herokuapp.com")
-      expect(page).to have_link("Pricing and Availability", "http://g5-cpas-8cz7tip-clearwater.herokuapp.com")
-      expect(page).to have_link("Customer Experience Management", "http://g5-cxm-8cz7tip-clearwater.herokuapp.com")
+      expect(page).to have_link("CMS", ENV['CMS_URL'])
+      expect(page).to have_link("Phone Numbers", ENV['CPNS_URL'])
+      expect(page).to have_link("Pricing and Availability", root_url)
+      expect(page).to have_link("Customer Experience Management", ENV['CXM_URL'])
     end
   end
 
