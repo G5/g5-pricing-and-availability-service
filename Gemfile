@@ -20,12 +20,16 @@ end
 group :development, :test do
   gem "sqlite3"
   gem "rspec-rails", "~> 2.14.0"
-  gem "capybara", "~> 2.1.0"
-  gem "selenium-webdriver", "~> 2.39.0"
+  gem "capybara"
+  # We need drag_by support on native elements:
+  # https://github.com/teampoltergeist/poltergeist/pull/552
+  # This should be released with v1.6.1 or v1.7.0
+  gem "poltergeist", github: "teampoltergeist/poltergeist", ref: "f826d135dd54a91f674992e2b5cab60a081e39c"
   gem "database_cleaner", "~> 1.0.1"
   gem "foreman"
   gem "fabrication"
   gem "faker"
+  gem "pry-byebug"
 end
 
 group :production do

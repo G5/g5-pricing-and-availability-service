@@ -5,8 +5,15 @@ ENV["HTTP_BASIC_AUTH_PASSWORD"] ||= "password"
 
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
+
 require "capybara/rails"
 require "capybara/rspec"
+require 'capybara/poltergeist'
+Capybara.register_driver :poltergeist do |app|
+  Capybara::Poltergeist::Driver.new(app, timeout: 180)
+end
+Capybara.javascript_driver = :poltergeist
+
 require "database_cleaner"
 
 # Requires supporting ruby files with custom matchers and macros, etc,
@@ -22,6 +29,13 @@ RSpec.configure do |config|
 
   config.include RequestAuthHelper, type: :request
   config.include ControllerAuthHelper, type: :controller
+  config.include DragAndDropHelper, type: :request
+
+  config.after(:each, js: true) do
+    # For some reason, it's not resetting back to the default driver after js specs,
+    # possibly because we're using capybara for request specs instead of feature specs
+    Capybara.use_default_driver
+  end
 
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)

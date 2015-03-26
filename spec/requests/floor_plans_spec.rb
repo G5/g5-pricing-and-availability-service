@@ -20,18 +20,6 @@ describe "Floor Plans" do
     click_button "Create Floor plan"
   end
 
-  def drag_and_drop(source, target)
-    builder = page.driver.browser.action
-    source = source.native
-    target = target.native
-
-    builder.click_and_hold source
-    builder.move_to        target, 1, 11
-    builder.move_to        target
-    builder.release        target
-    builder.perform
-  end
-
   describe "Floor plans index" do
     describe "with http basic auth" do
       before do
@@ -172,27 +160,24 @@ describe "Floor Plans" do
     end
   end
 
-  describe "Floor plans are drag and drop sortable" do
+  describe "Floor plans are drag and drop sortable", js: true do
     before do
+      http_login
       @location = Location.create! "urn" => "g5-cl-6cx7rin-hollywood", "name" => "Hollywood"
       @floor_plan_1 = FloorPlan.create! "location_id" => @location.id, "title" => "Unit 1"
       @floor_plan_2 = FloorPlan.create! "location_id" => @location.id, "title" => "Unit 2"
       visit location_path(@location)
     end
 
-    it "Updates database", js: true do
-      pending("Selenium doesn't play nice with HTTP basic auth")
-
+    it "Updates database" do
       expect(page).to have_content("Hollywood")
-      within "#sortable" do
-        floor_plan_1 = find('.floorplan:first-child')
-        floor_plan_2 = find('.floorplan:last-child')
-        expect(@floor_plan_2.row_order > @floor_plan_1.row_order).to be_true
-        floor_plan_2.drag_to(floor_plan_1)
-        drag_and_drop(floor_plan_1, floor_plan_2)
-        sleep 1
-        expect(@floor_plan_2.reload.row_order < @floor_plan_1.reload.row_order).to be_true
-      end
+      floor_plan_1 = '#sortable .floorplan:first-child'
+      floor_plan_2 = '#sortable .floorplan:last-child'
+
+      expect(@floor_plan_2.row_order > @floor_plan_1.row_order).to be_true
+      drag_and_drop_below(floor_plan_1, floor_plan_2)
+      sleep 1
+      expect(@floor_plan_2.reload.row_order < @floor_plan_1.reload.row_order).to be_true
     end
   end
 end

@@ -40,7 +40,10 @@ $(document).ready(function(){
       url = ui.item.data('update_url');
       position = ui.item.index();
       $.ajax({
-        type: 'PATCH',
+        // There are still a few browsers without proper PATCH support.
+        // Unfortunately, PhantomJS is one of them:
+        // https://github.com/ariya/phantomjs/issues/11384
+        type: 'PUT',
         url: url,
         dataType: 'json',
         data: { floor_plan: { row_order_position: position } }
