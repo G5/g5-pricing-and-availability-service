@@ -1,3 +1,4 @@
 Fabricator :floor_plan do
-  name { Faker::Name.name }
+  title { Faker::Name.name }
+  location
 end
