@@ -96,7 +96,7 @@ GEM
       activesupport
       g5_authentication_client (>= 0.2)
       httparty
-    g5_updatable (0.5.0)
+    g5_updatable (0.5.1)
       active_model_serializers (~> 0.8)
       g5_foundation_client (>= 0.2.0)
       pg
@@ -150,7 +150,7 @@ GEM
       multi_json (~> 1.3)
       multi_xml (~> 0.5)
       rack (~> 1.2)
-    pg (0.17.1)
+    pg (0.18.1)
     pry (0.10.1)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -158,7 +158,7 @@ GEM
     pry-byebug (3.1.0)
       byebug (~> 4.0)
       pry (~> 0.10)
-    rack (1.5.2)
+    rack (1.5.3)
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (4.1.7)
@@ -214,7 +214,7 @@ GEM
       multi_json (~> 1.0)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
-    sprockets-rails (2.2.4)
+    sprockets-rails (2.3.0)
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (>= 2.8, < 4.0)
@@ -255,7 +255,7 @@ DEPENDENCIES
   fabrication
   faker
   foreman
-  g5_updatable
+  g5_updatable (~> 0.5.1)
   honeybadger
   jbuilder (~> 1.2)
   jquery-rails
