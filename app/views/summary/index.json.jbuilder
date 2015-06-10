@@ -1,9 +1,9 @@
-json.vendor_leads @locations do |l|
+json.locations @locations do |l|
   json.urn l.urn
   json.name l.name
   json.created_at l.created_at
   json.updated_at l.updated_at
-    l.floor_plans.each do |f|
+    json.floor_plans l.floor_plans.each do |f|
       json.title f.title
       json.available_now f.available_now
       json.available_soon f.available_soon
