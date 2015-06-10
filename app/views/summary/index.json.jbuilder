@@ -4,6 +4,7 @@ json.locations @locations do |l|
   json.created_at l.created_at
   json.updated_at l.updated_at
     json.floor_plans l.floor_plans.each do |f|
+      json.old_id f.id
       json.title f.title
       json.available_now f.available_now
       json.available_soon f.available_soon
